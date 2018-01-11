@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 
-class Mock extends Component{
+class About extends Component{
     render(){
         console.log(this.props)
-        return <h2>this is Mock page</h2>
+        return <h2>this is about page</h2>
     }
 }
 
-export default Mock
+export default About

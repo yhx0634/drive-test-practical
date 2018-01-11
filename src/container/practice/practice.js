@@ -2,14 +2,13 @@ import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 import { Result, Icon, WhiteSpace } from 'antd-mobile';
 
-class Index extends Component{
+class Practice extends Component{
  
     render(){
-        console.log(this.props)
         const myImg = src => <img src={src} className="spe am-icon am-icon-md" alt="" />;
         return (
             <div>
-                 <Link to="/mock">
+                 <Link to="/discover">
                     <div className="result-example">
                         <Result 
                             title="模考练习"
@@ -17,7 +16,7 @@ class Index extends Component{
                         />
                     </div>
                </Link>
-                <Link to="/random"> 
+                <Link to="/about"> 
                     <div className="result-example">
                         <Result 
                             title="随机练习"
@@ -30,4 +29,4 @@ class Index extends Component{
     }
 }
 
-export default Index
+export default Practice
