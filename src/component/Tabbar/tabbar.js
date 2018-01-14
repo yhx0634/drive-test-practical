@@ -11,8 +11,7 @@ class CustTabBar extends React.Component{
 	render(){
         const tabList = this.props.data
         const {pathname} = this.props.location
-        console.log('dsassa')
-        
+      
 		return (
 			<TabBar tintColor="#36ab60">
 				{tabList.map(v=>(

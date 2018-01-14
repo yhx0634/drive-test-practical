@@ -1,22 +1,23 @@
 import React, {Component} from 'react'
 import {NavBar} from 'antd-mobile'
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, Redirect} from 'react-router-dom'
 import CustTabBar from '../../component/Tabbar/tabbar'
 
 import Practice from '../../container/practice/practice'
 import Discover from '../../container/discover/discover'
 import About from '../../container/about/about'
+import NotFound from '../../component/404/404'
+
 
 class Index extends Component{
     render(){
         const {pathname} = this.props.location
-        console.log(pathname)
 		const tabList = [
 			{
 				path:'/practice',
 				text:'Practice',
 				icon:'practice',
-				title:'Practice',
+				title:'KAOZUO',
 				component:Practice
 			},
 			{
@@ -32,23 +33,24 @@ class Index extends Component{
 				icon:'about',
                 title:'About',
                 component:About
-			}
-		]
-        return (
+            }
+        ]
+
+        const navPath = tabList.find(v=>v.path===pathname)
+       
+        return navPath ? (
             <div>
-				<NavBar className='fixd-header' mode='dard'>{pathname!=='/' ? tabList.find(v=>v.path==pathname).title : null}</NavBar>
+				<NavBar className='fixd-header' mode='light'>{navPath.title}</NavBar>
 				<div style={{marginTop:45}}>
 						<Switch>
 							{tabList.map(v=>(
 								<Route key={v.path} path={v.path} component={v.component}></Route>
-							))}
+                            ))}
 						</Switch>
 				</div>
-
 				<CustTabBar data={tabList}></CustTabBar>
-				
 			</div>
-        )
+        ) : <Redirect to='/practice'></Redirect> 
     }
 }
 
