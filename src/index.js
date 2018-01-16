@@ -9,6 +9,7 @@ import Practice from './container/practice/practice'
 import Discover from './container/discover/discover'
 import About from './container/about/about'
 import Index from './container/index/index'
+import MockIncorrect from './component/mock/mock.incorrect'
 
 import MockIndex from './component/mock/mock.index'
 
@@ -20,6 +21,7 @@ ReactDOM.render(
                 <Route  path='/about' component={About}></Route>
                 <Route  path='/practice' component={Practice}></Route> */}
                 <Route  path='/practice/mock' component={MockIndex}></Route>
+                <Route  path='/practice/incorrect' exact component={MockIncorrect}></Route>
                 <Route component={Index}></Route>
             </Switch>
         </div>

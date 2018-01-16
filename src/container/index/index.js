@@ -40,8 +40,8 @@ class Index extends Component{
        
         return navPath ? (
             <div>
-				<NavBar className='fixd-header' mode='light'>{navPath.title}</NavBar>
-				<div style={{marginTop:45}}>
+				<NavBar className='custNavBar' mode='light'>{navPath.title}</NavBar>
+				<div className='result-example'>
 						<Switch>
 							{tabList.map(v=>(
 								<Route key={v.path} path={v.path} component={v.component}></Route>

@@ -41,15 +41,9 @@ export const question_en = [
         "answer": "C", 
         "img": "", 
     },
-    
     { 
         "id": 3,
         "question": "Learner drivers with 120 hours of practice decrease their risk of crashing after they get their licence compared to drivers who have less practice. How much is the risk decreased?", 
-        "choice":{
-            "a": "10%", 
-            "b": "20%", 
-            "c": "30%"
-        },
         "choice":[
             {
                 "choice" : "A",
@@ -66,5 +60,25 @@ export const question_en = [
         ],
         "answer": "C", 
         "img": "", 
+    },
+    { 
+        "id": 4,
+        "question": "You are driving vehicle A. You are about to collide with a cyclist who has pulled out ahead of you. To avoid collisions like this, you should", 
+        "choice":[
+            {
+                "choice" : "A",
+                "content" : "not drive in built-up areas."
+            },
+            {
+                "choice" : "B",
+                "content" : "slow down when approaching parked cars so you can see and respond to hazards."
+            },
+            {
+                "choice" : "C",
+                "content" : "sound your horn when approaching any situation which might be hazardous."
+            }
+        ],
+        "answer": "B", 
+        "img": "https://www.vicroads.vic.gov.au/~/media/images/licences/learner-permit-practice-test/k0102.jpg", 
     }
 ]

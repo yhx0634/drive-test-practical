@@ -1,7 +1,8 @@
 import React from 'react'
-import { Result, Icon, WhiteSpace, List } from 'antd-mobile';
-import { Redirect } from 'react-router-dom'
+import { Result, Icon, WhiteSpace, List, Modal } from 'antd-mobile';
+import { Redirect, Link } from 'react-router-dom'
 
+import MockIncorrect from './mock.incorrect'
 import {question_en} from '../../Json/Questions.en'
 import GoodImg from './img/good.svg'
 import FaceBad from './img/face-bad.svg'
@@ -12,25 +13,46 @@ const myImg = src => <img src={src} className="spe am-icon am-icon-md" alt="" />
 
 class MockResult extends React.Component{
     
+    constructor(props) {
+    super(props);
+    this.state = {
+        modal1: false,
+        modal2: false,
+    };
+    }
 
     calculate(data){
         const result = (data.answered.length - data.incorrect.length)/data.answered.length
         return Math.round(result*100)
     }
 
-    getIncorrect(v){
+    getImg(e){
+        
+        var imgName
+        e >= 90?
+        imgName = GoodImg
+        :
+        imgName = FaceBad
+       console.log(GoodImg)
+        return imgName
+    }
+
+    getIncorrect(v, data){
         const question = question_en.find(d=>d.id===v.id)
         const correctChoice = question.choice.find(j=>j.choice===question.answer)
         const incorrectChoice = question.choice.find(j=>j.choice===v.c)
-        console.log(correctChoice)
-        console.log(question)
+      
+        const path = '/practice/incorrect'
         const itemList =
-            <Item key={question.id} wrap multipleLine onClick={() => {}}>
-                {question.id + '. ' + question.question}
-                <Brief><span className="red">{v.c}. {incorrectChoice.content}</span> -- Your answer</Brief>
-                
-                <Brief><span className="green">{correctChoice.choice}. {correctChoice.content}</span> -- Correct answer</Brief>
-            </Item>
+            <Link  key={question.id}  to={{pathname:path, current:v, data:data}} >
+                <Item 
+                    arrow="horizontal"
+                    onClick={() => {}}>
+                        {question.question}
+                        {/* <Brief><span className="red">{v.c}. {incorrectChoice.content}</span> -- Your answer</Brief>
+                        <Brief><span className="green">{correctChoice.choice}. {correctChoice.content}</span> -- Correct answer</Brief> */}
+                </Item>
+            </Link>
         return itemList
     }
     render(){
@@ -40,25 +62,24 @@ class MockResult extends React.Component{
                 <div className="result-example">
                 <div className="sub-title">Result</div>
                     <Result
-                        img={myImg(FaceBad)}
-                        title={'Your result is '+this.calculate(data)}
+                        className="result-score"
+                        img={myImg(this.getImg(this.calculate(data)))}
+                        title={'Your score is '+this.calculate(data)}
                         message={<div></div>}
                     />
                     <WhiteSpace />
                 </div>
                 <div>
+                {console.log(data.incorrect)}
                 {
-                    data.incorrect?
-                    <List renderHeader={() => 'Incorrect'} className="my-list">
+                    
+                    data.incorrect.length?
+                    <List 
+                        renderHeader={() => 'Incorrect'} 
+                        className="my-list">
                         {data.incorrect.map(v=>{
                             return(
-                                this.getIncorrect(v)
-                               
-                            //     <Item key={v.id} wrap multipleLine onClick={() => {}}>
-                            //     {v.id + '. ' + v.ques}
-                            //     <Brief><span className="red">A. dadsadsd</span> -- Your answer</Brief>
-                            //     <Brief><span className="green">A. dadsadsd</span> -- Correct answer</Brief>
-                            // </Item>
+                                this.getIncorrect(v, data)
                             )
                           })}
                            
