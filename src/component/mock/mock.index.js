@@ -1,8 +1,9 @@
 import React from 'react'
-import { NavBar, Icon, Button } from 'antd-mobile';
+import { NavBar, Icon } from 'antd-mobile';
 import { Redirect } from 'react-router-dom'
 import MockExam from './mock.exam'
 import {question_en} from '../../Json/Questions.en'
+import CustNavBar from '../navbar/navbar'
 
 class MockIndex extends React.Component{
     constructor(props){
@@ -77,14 +78,14 @@ class MockIndex extends React.Component{
                     ? 
                         <Redirect to={'/practice'}></Redirect> 
                     : 
-                        <NavBar
-                        className="custNavBar"
-                        mode="light"
-                        icon={<Icon type="left" />}
-                        onLeftClick={() => this.props.history.goBack()}
-                        > Practice
-                        {/* {this.state.listData.title} */}
-                        </NavBar>
+                        // <NavBar
+                        // className="custNavBar"
+                        // icon={<Icon type="left" />}
+                        // onLeftClick={() => this.props.history.goBack()}
+                        // > Practice
+                        // {/* {this.state.listData.title} */}
+                        // </NavBar>
+                        <CustNavBar data={{title:'Practice'}} />
                 }
                
                     <MockExam quesId = {this.state.quesId}  quesData = {this.randomQues()}></MockExam>

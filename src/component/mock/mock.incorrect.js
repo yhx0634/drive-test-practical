@@ -1,8 +1,10 @@
 import React from 'react'
-import { NavBar, Icon, List, Result, WhiteSpace, Button, Pagination, Toast } from 'antd-mobile';
+import { NavBar, Icon, List, Result, WhiteSpace, Toast } from 'antd-mobile';
 import { Redirect } from 'react-router-dom'
 import {question_en} from '../../Json/Questions.en'
 import MockResult from './mock.result'
+import CustNavBar from '../../component/navbar/navbar'
+
 
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -46,7 +48,6 @@ class MockIncorrect extends React.Component{
     }
 
     onNext(e,c){
-        console.log('e .length is ', e.length, 'c is ', c)
         var currentListId = -1
         e.map((v, index)=>{
             v.id === c?
@@ -54,7 +55,7 @@ class MockIncorrect extends React.Component{
             : null
         })
         var nextQuesId = e[currentListId + 1]
-        console.log('本页题目id',c, '所在列表中的排序 ', currentListId)
+
         
         currentListId < e.length - 1?
         this.setState({  currentId:nextQuesId.id })
@@ -64,8 +65,6 @@ class MockIncorrect extends React.Component{
 
     styleSet(c,a){
         var style=''
-        console.log(a)
-        
         this.props.location.current.c === c ?
             style = '#ff000040'
         :
@@ -84,51 +83,54 @@ class MockIncorrect extends React.Component{
         const myImg = src => <img src={src} className="spe am-icon am-icon-md" alt="" />;
        
         return(
-           
-            <div>
+            <div>  
+                <div>
+                    {/* <NavBar
+                        className="custNavBar"
+                        mode="light"
+                        icon={<Icon type="left" />}
+                        onLeftClick={() => this.props.history.goBack()}
+                        > Incorrect</NavBar> */}
+                    <CustNavBar 
+                        data={{
+                            title:'Incorrect', 
+                            icon:<Icon type="left" />, 
+                            onLeftClick:this.props.history.goBack
+                        }} 
+                    />
+                <div className="text-align-left result-example">
+                <div className="exam-sub-title">Question {question.id}</div>
+                    <Result
+                        className="exam-page-result"
+                        imgUnderTitle
+                        title={question.question}
+                        img={question.img?myImg(question.img):null}
+                    />
+                </div>
+                <WhiteSpace size="xl"></WhiteSpace>
+                <List className="incorrect-list">
+                    {question.choice.map(v=>{
+                        return  (
+                            
+                            <div key={v.choice} >
+                                <Item
+                                    style={{backgroundColor:this.styleSet(v.choice, question.answer)}}
+                                    wrap 
+                                    onClick={() => {}}>
+                                    {v.choice + '. ' + v.content}
+                                </Item>
+                            </div>
+                            
+                        )
+                    })}
+                </List>
                 
-            <div>
-                <NavBar
-                    className="custNavBar"
-                    mode="light"
-                    icon={<Icon type="left" />}
-                    onLeftClick={() => this.props.history.goBack()}
-                    > Incorrect
-                    {/* {this.state.listData.title} */}
-                    </NavBar>
-            <div className="text-align-left result-example">
-            <div className="exam-sub-title">Question {question.id}</div>
-                <Result
-                    className="exam-page-result"
-                    imgUnderTitle
-                    title={question.question}
-                    img={question.img?myImg(question.img):null}
-                />
+                {/* <Pagination simple total={5} current={1} locale={locale} /> */}
             </div>
-            <WhiteSpace size="xl"></WhiteSpace>
-            <List className="incorrect-list">
-                {question.choice.map(v=>{
-                    return  (
-                        
-                        <div key={v.choice} >
-                            <Item
-                                style={{backgroundColor:this.styleSet(v.choice, question.answer)}}
-                                wrap 
-                                onClick={() => {}}>
-                                {v.choice + '. ' + v.content}
-                            </Item>
-                        </div>
-                        
-                    )
-                })}
-            </List>
-            
-            {/* <Pagination simple total={5} current={1} locale={locale} /> */}
-        </div>
-        <div className="btnBar">
-            <p onClick={()=>{this.onPrev(this.state.data.incorrect, quesId)}}>{locale.prevText}</p>
-            <p onClick={()=>{this.onNext(this.state.data.incorrect, quesId)}}>{locale.nextText}</p>
-        </div>
+            <div className="btnBar">
+                <p onClick={()=>{this.onPrev(this.state.data.incorrect, quesId)}}>{locale.prevText}</p>
+                <p onClick={()=>{this.onNext(this.state.data.incorrect, quesId)}}>{locale.nextText}</p>
+            </div>
         </div>
         )
     } 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {NavBar} from 'antd-mobile'
+import {NavBar, WhiteSpace} from 'antd-mobile'
 import {Switch, Route, Redirect} from 'react-router-dom'
 import CustTabBar from '../../component/Tabbar/tabbar'
 
@@ -7,6 +7,7 @@ import Practice from '../../container/practice/practice'
 import Discover from '../../container/discover/discover'
 import About from '../../container/about/about'
 import NotFound from '../../component/404/404'
+import CustNavBar from '../../component/navbar/navbar'
 
 
 class Index extends Component{
@@ -17,7 +18,7 @@ class Index extends Component{
 				path:'/practice',
 				text:'Practice',
 				icon:'practice',
-				title:'KAOZUO',
+				title:'KaoZuo',
 				component:Practice
 			},
 			{
@@ -40,7 +41,14 @@ class Index extends Component{
        
         return navPath ? (
             <div>
-				<NavBar className='custNavBar' mode='light'>{navPath.title}</NavBar>
+				<CustNavBar 
+					data={{
+						title:navPath.title,
+						icon:'', 
+						onLeftClick:''
+					}} 
+				/>
+				<WhiteSpace/>
 				<div className='result-example'>
 						<Switch>
 							{tabList.map(v=>(

@@ -1,11 +1,13 @@
 import React from 'react'
-import { List, Result, WhiteSpace } from 'antd-mobile';
-import MockResult from './mock.result'
-import PracticeResult from '../../component/practice/result'
+import { List, Result, WhiteSpace, Toast } from 'antd-mobile';
+import PracticeResult from '../result'
 
 const Item = List.Item;
-
-class MockExam extends React.Component{
+const locale = {
+    prevText: 'Prev',
+    nextText: 'Next',
+};
+class FeedbackIndex extends React.Component{
     constructor(props) {
 		super(props)
 		this.state = {
@@ -15,30 +17,34 @@ class MockExam extends React.Component{
 
 		}
     }
+
+    // reload the component
+    componentWillReceiveProps(){
+        this.setState({
+            quesId: 1
+        })
+    }
     
     checkCorrect(id,c,a){
-        c!==a?
-        this.setPageState(id, 'incorrect',c)
-        :
-        this.setPageState(id)
+        if(c!== a)
+            Toast.offline('Incorrect!!!', 0.5)
+        else{
+            Toast.success('Correct !!!', 0.5);
+            this.setPageState(id)
+        }
+        
     }
 
     setPageState(id, incorrect, c){
         incorrect ?
-        setTimeout(() => {
-            this.setState({
-                incorrect:[...this.state.incorrect, {id, c}],
-                quesId: this.state.quesId + 1,
-                answered: [...this.state.answered, id],
-          })
-        }, 200)
+        null
         :
-        setTimeout(() => {
-            this.setState({
-                quesId: this.state.quesId + 1,
-                answered: [...this.state.answered, id],
-          })
-        }, 200)
+            setTimeout(() => {
+                this.setState({
+                    quesId: this.state.quesId + 1,
+                    answered: [...this.state.answered, id],
+            })
+            }, 500)
     }
 
     render(){
@@ -74,8 +80,8 @@ class MockExam extends React.Component{
                 </div>
             )
         :
-            <PracticeResult data={this.state}></PracticeResult> 
+            <PracticeResult data={this.state} mode = 'feedback'></PracticeResult> 
     }
 }
 
-export default MockExam
+export default FeedbackIndex

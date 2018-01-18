@@ -1,26 +1,16 @@
 import React from 'react'
-import { Result, Icon, WhiteSpace, List, Modal } from 'antd-mobile';
-import { Redirect, Link } from 'react-router-dom'
+import { Result, WhiteSpace, List } from 'antd-mobile';
+import { Link } from 'react-router-dom'
 
-import MockIncorrect from './mock.incorrect'
 import {question_en} from '../../Json/Questions.en'
 import GoodImg from './img/good.svg'
 import FaceBad from './img/face-bad.svg'
 const Item = List.Item;
-const Brief = Item.Brief;
 
 const myImg = src => <img src={src} className="spe am-icon am-icon-md" alt="" />;
 
 class MockResult extends React.Component{
     
-    constructor(props) {
-    super(props);
-    this.state = {
-        modal1: false,
-        modal2: false,
-    };
-    }
-
     calculate(data){
         const result = (data.answered.length - data.incorrect.length)/data.answered.length
         return Math.round(result*100)
@@ -28,7 +18,7 @@ class MockResult extends React.Component{
 
     getImg(e){
         
-        var imgName
+        let imgName
         e >= 90?
         imgName = GoodImg
         :
@@ -39,8 +29,6 @@ class MockResult extends React.Component{
 
     getIncorrect(v, data){
         const question = question_en.find(d=>d.id===v.id)
-        const correctChoice = question.choice.find(j=>j.choice===question.answer)
-        const incorrectChoice = question.choice.find(j=>j.choice===v.c)
       
         const path = '/practice/incorrect'
         const itemList =
@@ -49,8 +37,6 @@ class MockResult extends React.Component{
                     arrow="horizontal"
                     onClick={() => {}}>
                         {question.question}
-                        {/* <Brief><span className="red">{v.c}. {incorrectChoice.content}</span> -- Your answer</Brief>
-                        <Brief><span className="green">{correctChoice.choice}. {correctChoice.content}</span> -- Correct answer</Brief> */}
                 </Item>
             </Link>
         return itemList
