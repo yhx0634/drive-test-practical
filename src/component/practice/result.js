@@ -1,6 +1,6 @@
 import React from 'react'
-import { Result, WhiteSpace, List, Button } from 'antd-mobile';
-import { Link, Redirect } from 'react-router-dom'
+import { Result, WhiteSpace, List } from 'antd-mobile';
+import { Link } from 'react-router-dom'
 
 import {question_en} from '../../Json/Questions.en'
 import GoodImg from '../images/good.svg'

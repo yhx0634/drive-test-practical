@@ -1,12 +1,11 @@
 import React, {Component} from 'react'
-import {NavBar, WhiteSpace} from 'antd-mobile'
+import {WhiteSpace} from 'antd-mobile'
 import {Switch, Route, Redirect} from 'react-router-dom'
 import CustTabBar from '../../component/Tabbar/tabbar'
 
 import Practice from '../../container/practice/practice'
 import Discover from '../../container/discover/discover'
 import About from '../../container/about/about'
-import NotFound from '../../component/404/404'
 import CustNavBar from '../../component/navbar/navbar'
 
 

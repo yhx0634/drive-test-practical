@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
-import { Result, Icon, WhiteSpace, Flex } from 'antd-mobile';
+import { Result } from 'antd-mobile';
 
 export const list = [
     {
@@ -24,9 +24,6 @@ export const list = [
 class Practice extends Component{
  
     render(){
-        const myImg = src => <img src={src} className="spe am-icon am-icon-md" alt="" />;
-
-       
         return (
             <div>
                 {

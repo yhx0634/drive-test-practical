@@ -1,10 +1,8 @@
 import React, {Component} from 'react'
-import {NavBar, Icon} from 'antd-mobile'
+import {NavBar} from 'antd-mobile'
 
 class CustNavBar extends Component{
-    constructor(props){
-        super(props)
-    }
+   
     render(){
         const navTitle = this.props.data
         const content = navTitle.onLeftClick ? 

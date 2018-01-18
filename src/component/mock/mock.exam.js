@@ -1,6 +1,5 @@
 import React from 'react'
 import { List, Result, WhiteSpace } from 'antd-mobile';
-import MockResult from './mock.result'
 import PracticeResult from '../../component/practice/result'
 
 const Item = List.Item;

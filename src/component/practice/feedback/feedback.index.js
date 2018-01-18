@@ -3,10 +3,7 @@ import { List, Result, WhiteSpace, Toast } from 'antd-mobile';
 import PracticeResult from '../result'
 
 const Item = List.Item;
-const locale = {
-    prevText: 'Prev',
-    nextText: 'Next',
-};
+
 class FeedbackIndex extends React.Component{
     constructor(props) {
 		super(props)
@@ -36,8 +33,8 @@ class FeedbackIndex extends React.Component{
     }
 
     setPageState(id, incorrect, c){
-        incorrect ?
-        null
+        const result = incorrect ?
+            null
         :
             setTimeout(() => {
                 this.setState({
@@ -45,6 +42,8 @@ class FeedbackIndex extends React.Component{
                     answered: [...this.state.answered, id],
             })
             }, 500)
+
+        return result
     }
 
     render(){

@@ -1,14 +1,11 @@
 import React from 'react'
-import { NavBar, Icon, List, Result, WhiteSpace, Toast } from 'antd-mobile';
+import { Icon, List, Result, WhiteSpace, Toast } from 'antd-mobile';
 import { Redirect } from 'react-router-dom'
 import {question_en} from '../../Json/Questions.en'
-import MockResult from './mock.result'
+
 import CustNavBar from '../../component/navbar/navbar'
 
-
 const Item = List.Item;
-const Brief = Item.Brief;
-
 const locale = {
     prevText: 'Prev',
     nextText: 'Next',
@@ -27,32 +24,34 @@ class MockIncorrect extends React.Component{
     }
 
     onPrev(e,c){
-        var currentListId = -1
-        e.map((v, index)=>{
-            v.id === c?
-                currentListId = index
-            : null
+        const currentListId = e.map((v, index)=>{
+            return (
+                v.id === c?
+                    index
+                : null
+            )
         })
+
+       
         var nextQuesId = e[currentListId - 1]
         // console.log('本页题目id',c, '所在列表中的排序 ', currentListId, '上一题题目id', nextQuesId.id)
 
-        currentListId !== 0?
-        this.setState({  visibilityPrev:'none' })
-        :
-        null
+        if(currentListId !== 0)
+            this.setState({  visibilityPrev:'none' })
         
-        currentListId === 0?
-        Toast.info('This is the first one', 1)
-        :
-        this.setState({  currentId:nextQuesId.id })
+        if(currentListId === 0)
+            Toast.info('This is the first one', 1)
+        else
+            this.setState({  currentId:nextQuesId.id })
     }
 
     onNext(e,c){
-        var currentListId = -1
-        e.map((v, index)=>{
-            v.id === c?
-                currentListId = index
-            : null
+        const currentListId = e.map((v, index)=>{
+            return (
+                v.id === c?
+                    index
+                : null
+            )
         })
         var nextQuesId = e[currentListId + 1]
 
@@ -65,13 +64,13 @@ class MockIncorrect extends React.Component{
 
     styleSet(c,a){
         var style=''
-        this.props.location.current.c === c ?
+        if(this.props.location.current.c === c)
             style = '#ff000040'
-        :
-            c === a?
-            style = '#00800040'
-            :
-            null
+        else if(c === a)
+                style = '#00800040'
+        
+            
+           
         // {id: 3, c: "A"}c: "A"id: 3__proto__: Object
         return style
     }

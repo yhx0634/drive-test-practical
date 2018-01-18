@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavBar, Icon    } from 'antd-mobile';
+import { Icon } from 'antd-mobile';
 import { Redirect } from 'react-router-dom'
 import MockExam from '../mock/mock.exam'
 import FeedbackIndex from './feedback/feedback.index'
@@ -16,10 +16,8 @@ class PracticeIndex extends React.Component{
     }
 
     randomQues(){
-        // var arr = new Array()
-        // var quesList = new Array()
         let arr = []
-        let quesList = []
+        
         let listRange = 32
         listRange = question_en.length < 32 ? question_en.length : null
 
@@ -32,10 +30,11 @@ class PracticeIndex extends React.Component{
                 arr = [...arr, {'arrId': i+1, 'quesId':num}]
             flag = flag ? i++ : null 
         }
-        arr.map(v=>{
+        const quesList = arr.map(v=>{
+            let quesList = []
             const question = question_en.find(d=>d.id===v.quesId)
             quesList = [...quesList, {'id':v.arrId, 'data':question}]
-           
+            return quesList
         })
         return quesList
     }
