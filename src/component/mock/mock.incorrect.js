@@ -19,20 +19,21 @@ class MockIncorrect extends React.Component{
             this.state = {
                 data: this.props.location.data,
                 currentId: this.props.location.current.id,
+                currentAns: this.props.location.current.c
             };
         }  else   return null
     }
 
     onPrev(e,c){
-        const currentListId = e.map((v, index)=>{
+        var currentListId=-1
+        e.map((v, index)=>{
             return (
                 v.id === c?
-                    index
+                currentListId = index
                 : null
             )
         })
-
-       
+        
         var nextQuesId = e[currentListId - 1]
         // console.log('本页题目id',c, '所在列表中的排序 ', currentListId, '上一题题目id', nextQuesId.id)
 
@@ -42,14 +43,15 @@ class MockIncorrect extends React.Component{
         if(currentListId === 0)
             Toast.info('This is the first one', 1)
         else
-            this.setState({  currentId:nextQuesId.id })
+            this.setState({  currentId:nextQuesId.id, currentAns:nextQuesId.c })
     }
 
     onNext(e,c){
-        const currentListId = e.map((v, index)=>{
+        var currentListId=-1
+        e.map((v, index)=>{
             return (
                 v.id === c?
-                    index
+                    currentListId = index
                 : null
             )
         })
@@ -57,21 +59,18 @@ class MockIncorrect extends React.Component{
 
         
         currentListId < e.length - 1?
-        this.setState({  currentId:nextQuesId.id })
+        this.setState({  currentId:nextQuesId.id, currentAns:nextQuesId.c })
         :
         Toast.info('This is the last question', 1)
     }
 
     styleSet(c,a){
         var style=''
-        if(this.props.location.current.c === c)
+        if(this.state.currentAns === c)
             style = '#ff000040'
         else if(c === a)
                 style = '#00800040'
         
-            
-           
-        // {id: 3, c: "A"}c: "A"id: 3__proto__: Object
         return style
     }
 
@@ -84,12 +83,6 @@ class MockIncorrect extends React.Component{
         return(
             <div>  
                 <div>
-                    {/* <NavBar
-                        className="custNavBar"
-                        mode="light"
-                        icon={<Icon type="left" />}
-                        onLeftClick={() => this.props.history.goBack()}
-                        > Incorrect</NavBar> */}
                     <CustNavBar 
                         data={{
                             title:'Incorrect', 
@@ -123,8 +116,6 @@ class MockIncorrect extends React.Component{
                         )
                     })}
                 </List>
-                
-                {/* <Pagination simple total={5} current={1} locale={locale} /> */}
             </div>
             <div className="btnBar">
                 <p onClick={()=>{this.onPrev(this.state.data.incorrect, quesId)}}>{locale.prevText}</p>

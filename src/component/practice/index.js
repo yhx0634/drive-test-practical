@@ -17,7 +17,7 @@ class PracticeIndex extends React.Component{
 
     randomQues(){
         let arr = []
-        
+        let quesList = []
         let listRange = 32
         listRange = question_en.length < 32 ? question_en.length : null
 
@@ -30,8 +30,7 @@ class PracticeIndex extends React.Component{
                 arr = [...arr, {'arrId': i+1, 'quesId':num}]
             flag = flag ? i++ : null 
         }
-        const quesList = arr.map(v=>{
-            let quesList = []
+        arr.map(v=>{
             const question = question_en.find(d=>d.id===v.quesId)
             quesList = [...quesList, {'id':v.arrId, 'data':question}]
             return quesList

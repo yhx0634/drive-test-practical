@@ -14,7 +14,7 @@ import PracticeIndex from './component/practice/index'
 
 ReactDOM.render(
     <BrowserRouter>
-        <div>
+        <div style={{position:"fixed", height:"100%", width:"100%"}}>
             <Switch>
                 {/* <Route  path='/discover' component={Discover}></Route>
                 <Route  path='/about' component={About}></Route>
