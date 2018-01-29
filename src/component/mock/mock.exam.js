@@ -11,6 +11,7 @@ class MockExam extends React.Component{
             incorrect:[],
             quesId:1,
             answered:[],
+            disabled: false
 
 		}
     }
@@ -23,12 +24,15 @@ class MockExam extends React.Component{
     }
 
     setPageState(id, incorrect, c){
+        this.setState({ disabled: true })
+
         incorrect ?
         setTimeout(() => {
             this.setState({
                 incorrect:[...this.state.incorrect, {id, c}],
                 quesId: this.state.quesId + 1,
                 answered: [...this.state.answered, id],
+                disabled: false
           })
         }, 200)
         :
@@ -36,6 +40,7 @@ class MockExam extends React.Component{
             this.setState({
                 quesId: this.state.quesId + 1,
                 answered: [...this.state.answered, id],
+                disabled: false
           })
         }, 200)
     }
@@ -55,16 +60,19 @@ class MockExam extends React.Component{
                         title={_question.data.question}
                     />
                     <WhiteSpace size="xl"></WhiteSpace>
-                    <List>
+                    <List >
                         {_question.data.choice.map(v=>{
                             return  (
                                 <Item
+                                    disabled={this.state.disabled}
                                     wrap 
                                     key={v.choice} 
                                     onClick={() => {
+                                        !this.state.disabled?
                                         this.checkCorrect(_question.data.id, v.choice, _question.data.answer)
-                                        
-                                }}>
+                                        :
+                                        null
+                                    }}>
                                     {v.choice + '. ' + v.content}
                                 </Item>
                             )
