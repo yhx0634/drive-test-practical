@@ -10,12 +10,15 @@ import About from './container/about/about'
 import Index from './container/index/index'
 import MockIncorrect from './component/mock/mock.incorrect'
 
+import TestPage from './container/test/test'
+
 import PracticeIndex from './component/practice/index'
 
 ReactDOM.render(
     <BrowserRouter>
         <div style={{position:"fixed", height:"100%", width:"100%"}}>
             <Switch>
+                <Route  exact path='/test' component={TestPage}></Route> */}
                 {/* <Route  path='/discover' component={Discover}></Route>
                 <Route  path='/about' component={About}></Route>
                 <Route  path='/practice' component={Practice}></Route> */}

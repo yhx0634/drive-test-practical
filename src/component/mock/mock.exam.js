@@ -63,8 +63,7 @@ class MockExam extends React.Component{
                                     key={v.choice} 
                                     onClick={() => {
                                         this.checkCorrect(_question.data.id, v.choice, _question.data.answer)
-                                        
-                                }}>
+                                    }}>
                                     {v.choice + '. ' + v.content}
                                 </Item>
                             )

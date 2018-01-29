@@ -112,3 +112,9 @@ white-space: normal;
 	border: 0PX solid #ddd !important;
    	border-radius: 0px !important;
 }
+
+.practice-list-item .am-list-content{
+	color:white !important;
+	text-align: center !important;
+	font-size: 18px !important
+}
