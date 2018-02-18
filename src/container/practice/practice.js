@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
-import { Result, List } from 'antd-mobile';
+import { List } from 'antd-mobile';
 
 const Item = List.Item;
 
@@ -35,37 +35,36 @@ export const list = [
 ]
 
 class Practice extends Component{
+  renderMenu() {
+    if(process.env.NODE_ENV === 'production'){
+        console.log('product');
+    } else {
+        console.log(process.env);
+    }
+        return (
+            <List className="incorrect-list">
+                {list.map(v=>{
+                    return  (
+                        <Link to={{pathname:v.path, data:v}} key={v.mode}>
+                            <div className="practice-list-item" key={v.path} >
+                                <Item
+                                    wrap 
+                                    onClick={() => {}}
+                                    style={{backgroundColor:v.backgroundColor, height:"120px"}}>
+                                {v.title}
+                                </Item>
+                            </div>
+                        </Link>
+                    )
+                })}
+            </List>
+        )
+    }
  
     render(){
         return (
             <div>
-                {
-                    <List className="incorrect-list">
-                        {list.map(v=>{
-                            return  (
-                                <Link to={{pathname:v.path, data:v}} key={v.mode}>
-                                <div className="practice-list-item" key={v.path} >
-                                    <Item
-                                        wrap 
-                                        onClick={() => {}}
-                                        style={{backgroundColor:v.backgroundColor, height:"120px"}}>
-                                       {v.title}
-                                    </Item>
-                                </div>
-                                </Link>
-                             
-                            )
-                         })}
-                     </List>
-                    // list.map(v=>(
-                    //         <Link to={{pathname:v.path, data:v}} key={v.mode}>
-                    //             <Result 
-                    //                 title={v.title}
-                    //                 message={v.desc}
-                    //             />
-                    //     </Link>
-                    // ))
-                }
+                {this.renderMenu()}
             </div>
         )
     }

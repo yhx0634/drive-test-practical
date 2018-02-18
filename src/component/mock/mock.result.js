@@ -17,13 +17,11 @@ class MockResult extends React.Component{
     }
 
     getImg(e){
-        
         let imgName
         e >= 90?
         imgName = GoodImg
         :
         imgName = FaceBad
-       console.log(GoodImg)
         return imgName
     }
 
@@ -32,7 +30,7 @@ class MockResult extends React.Component{
       
         const path = '/practice/incorrect'
         const itemList =
-            <Link  key={question.id}  to={{pathname:path, current:v, data:data}} >
+            <Link  key={question.id}  quesData={this.props} to={{pathname:path, current:v, data:data}} >
                 <Item 
                     arrow="horizontal"
                     onClick={() => {}}>
@@ -42,7 +40,6 @@ class MockResult extends React.Component{
         return itemList
     }
     render(){
-        const data = this.props.data
         return (
             <div>
                 <div className="result-example">
@@ -56,9 +53,7 @@ class MockResult extends React.Component{
                     <WhiteSpace />
                 </div>
                 <div>
-                {console.log(data.incorrect)}
                 {
-                    
                     data.incorrect.length?
                     <List 
                         renderHeader={() => 'Incorrect'} 

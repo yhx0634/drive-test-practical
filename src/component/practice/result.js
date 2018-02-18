@@ -1,8 +1,6 @@
 import React from 'react'
 import { Result, WhiteSpace, List } from 'antd-mobile';
 import { Link } from 'react-router-dom'
-
-import {question_en} from '../../Json/Questions.en'
 import GoodImg from '../images/good.svg'
 import FaceBad from '../images/face-bad.svg'
 import { list } from '../../container/practice/practice'
@@ -27,14 +25,15 @@ class PracticeResult extends React.Component{
     }
 
     getIncorrect(v, data){
-        const question = question_en.find(d=>d.id===v.id)
-       
+        const question = data.quesData.find(d=>d._id===v.id)
+        const _title = data.language ? question ? question.data.cn.question : question.data.en.question : null;
+        
         const itemList =
-            <Link  key={question.id}  to={{pathname:path, current:v, data:data}} >
+            <Link  key={question._id}  to={{pathname:path, current:v, data:data}} >
                 <Item 
                     arrow="horizontal"
                     onClick={() => {}}>
-                        {question.question}
+                        {_title}
                 </Item>
             </Link>
         return itemList
@@ -97,13 +96,10 @@ class PracticeResult extends React.Component{
                         </div>
                     </div>
                 )
-                
             }
         }
         
-        return (
-                resultExample()
-        )
+        return  resultExample()
     }
 }
 

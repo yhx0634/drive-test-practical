@@ -9,6 +9,9 @@
 # production
 /build
 
+# development
+/config/webpack.config.prod.js
+
 # misc
 .DS_Store
 .env.local
