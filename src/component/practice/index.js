@@ -14,28 +14,6 @@ class PracticeIndex extends React.Component{
         }
         this.mounted = false;
     }
-    // randomQues2(){
-    //     let arr = []
-    //     let quesList = []
-    //     let listRange = 32
-    //     listRange = question_list.length < 32 ? question_list.length : null
-
-    //     for( let i=0; i < listRange;){
-    //         let num = Math.round(Math.random()*(question_list.length-1)+1)
-    //         let flag = true
-    //         arr.find(v=>v.quesId===num)?
-    //             flag = false
-    //         :
-    //             arr = [...arr, {'arrId': i+1, 'quesId':num}]
-    //         flag = flag ? i++ : null 
-    //     }
-    //     arr.map(v=>{
-    //         const question = question_list.find(d=>d.quesId===v.quesId)
-    //         quesList = [...quesList, {'id':v.arrId, 'data':question}]
-    //         return quesList
-    //     })
-    //     return quesList
-    // }
 
     renderMenu(){
         const list = this.props.history.location.data

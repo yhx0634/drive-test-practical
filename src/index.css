@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: #ffffff !important;
 }
 .am-tab-bar{
 	position: fixed;
@@ -25,7 +26,6 @@ body {
 }
 
 .result-example {
-
 	margin-top: 46px;
 }
 .exam-page-result .am-result-pic {
@@ -147,3 +147,64 @@ white-space: normal;
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+@media (max-width: 414px) {
+
+	.menu{
+		margin-top: 60px;
+		padding-bottom: 60px;
+	}
+	.menu-title{
+		font-size: 28px;
+   	 	margin: 0 16px 23px;
+	}
+
+	.menu-list{
+		flex-direction: column;
+		display:flex;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	.menu-content{
+		display:flex;
+		flex-direction: row;
+		width: 314px;
+		height: 88px;
+		margin-bottom: 15px;
+		box-shadow: 0px 12px 20px -6px #888888;
+		border-radius: 8px;
+
+	}
+	.menu-content-title{
+		margin: 0;
+		color: white;
+		padding-top: 15px;
+		font-size: 20px;
+	}
+	.menu-content-desc{
+		padding-top: 5px;
+		margin: 0;
+		color: white;
+		font-size: 12px;
+	}
+	.menu-content-image{
+		width:30%;
+		flex-direction: column;
+    	display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.menu-content-right{
+		width:70%;
+		padding-right: 5px;
+	}
+
+	.rules .menu-content-right{
+		display: flex;
+    	align-items: center;
+		width:70%;
+		padding-right: 5px;
+	}
+}
+
