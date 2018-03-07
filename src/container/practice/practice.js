@@ -1,8 +1,5 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
-import { List } from 'antd-mobile';
-
-const Item = List.Item;
 
 export const list = [
     {
@@ -36,26 +33,26 @@ export const list = [
 
 export const rulesList = [
     {
-        path:'/practice/vic',
-        mode:'vic',
+        path:'/help/vic',
+        state:'vic',
         title:'Victoria',
         title_cn:'维洲驾考流程',
         backgroundColor: '#F67059'
     },
     {
-        path:'/practice/nsw',
-        mode:'vic',
+        path:'/help/nsw',
+        state:'nsw',
         title:'Victoria',
         title_cn:'新州驾考流程',
         backgroundColor: '#B38CFF'
     },
-    {
-        path:'/practice/sa',
-        mode:'sa',
-        title:'South Australia',
-        title_cn:'南澳驾考流程',
-        backgroundColor: '#49D9CD'
-    }
+    // {
+    //     path:'/help/sa',
+    //     state:'sa',
+    //     title:'South Australia',
+    //     title_cn:'南澳驾考流程',
+    //     backgroundColor: '#49D9CD'
+    // }
 ]
 
 class Practice extends Component{
@@ -68,8 +65,8 @@ class Practice extends Component{
                 </div>
                 {list.map(v=>{
                     return  (
-                        <div className="menu-list">
-                            <Link to={{pathname:v.path, data:v}} key={v.mode}>
+                        <div className="menu-list" key={v.mode}>
+                            <Link to={{pathname:v.path, data:v}} >
                                 <div className="menu-content" style={{backgroundColor:v.backgroundColor}} key={v.path} >
                                     <div className="menu-content-image">
                                         <img style={{height:'55px', width:'55px'}} src="https://image.flaticon.com/icons/svg/741/741414.svg"  alt="car" />
@@ -95,9 +92,9 @@ class Practice extends Component{
                     <p>驾考流程</p>
                 </div>
                 {rulesList.map(v=>{
-                    return  (
-                        <div className="menu-list">
-                            <Link to={{pathname:v.path, data:v}} key={v.mode}>
+                    return(
+                        <div className="menu-list"  key={v.state}>
+                            <Link to={{pathname:v.path, data:v}}>
                                 <div className="menu-content" style={{backgroundColor:v.backgroundColor}} key={v.path} >
                                     <div className="menu-content-image">
                                         <img style={{height:'55px', width:'55px'}} src="https://image.flaticon.com/icons/svg/741/741414.svg"  alt="car" />
@@ -108,7 +105,7 @@ class Practice extends Component{
                                 </div>
                             </Link>
                         </div>
-                    )
+                    ) 
                 })}
             </div>
         )

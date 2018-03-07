@@ -5,9 +5,7 @@ import {withRouter} from 'react-router-dom'
 @withRouter
 
 class CustTabBar extends React.Component{
-	// static propTypes = {
-	// 	data: PropTypes.array.isRequired
-	// }
+	
 	render(){
         const tabList = this.props.data
         const {pathname} = this.props.location

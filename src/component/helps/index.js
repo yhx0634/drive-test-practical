@@ -1,49 +1,48 @@
 import React from 'react'
 import { Icon } from 'antd-mobile';
 import { Redirect } from 'react-router-dom'
-import MockExam from './mock/mock.exam'
-import FeedbackIndex from './feedback/feedback.index'
+import HelpPage from './help'
 import CustNavBar from '../../component/navbar/navbar'
-import './practice.css'
-class PracticeIndex extends React.Component{
+import './helps.css'
+class HelpIndex extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             quesId:1
         }
-        this.mounted = false;
     }
 
     renderMenu(){
-        const list = this.props.history.location.data
-        const content = list =>  {
-            if(list.length !== 0){
-              return  (
-                list.mode === 'practice'?
-                <MockExam quesId = {this.state.quesId}></MockExam>
-                :
-                <FeedbackIndex quesId = {this.state.quesId}></FeedbackIndex>
-              )
+        const data = this.props.history.location.data
+        const content = data =>  {
+            if(data !== undefined){
+                switch(data.state){
+                    case 'vic':
+                        return <HelpPage title={data.title_cn} state={'vic'} theme={'#F67059'}></HelpPage>
+                    case 'nsw':
+                        return <HelpPage title={data.title_cn} state={'nsw'} theme={'#B38CFF'}></HelpPage>
+                    default:
+                        return null;
+                }
             }
         }
         return (
-            !list
+            !data
             ? 
                 <Redirect to={'/practice'}></Redirect> 
             : 
             <div>
                 <CustNavBar 
                     data={{
-                        title:list.title_cn, 
+                        title:data.title_cn, 
                         icon:<Icon type="left" />, 
                         onLeftClick:this.props.history.goBack
                     }} 
                 />
-                {content(list)}
+                {content(data)}
             </div>
         )
     }
-
     render(){
         return (
             <div>
@@ -53,4 +52,4 @@ class PracticeIndex extends React.Component{
     }
 }
 
-export default PracticeIndex
+export default HelpIndex

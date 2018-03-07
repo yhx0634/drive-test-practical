@@ -1,20 +1,18 @@
 import React from 'react';
-import { Progress, List, Result, WhiteSpace, Toast } from 'antd-mobile';
-import PracticeResult from '../result';
+import { Progress, } from 'antd-mobile';
+import PracticeResult from '../result/result';
 import { getQuesList } from '../../../utils/getdata';
 import loadingImg from '../../images/loading.svg';
 import {question_list} from '../../../Json/question.list';
 
-const Item = List.Item;
-
+var correctDivId = ''
 class FeedbackIndex extends React.Component{
     constructor(props) {
 		super(props)
 		this.state = {
-            incorrect:[],
-            quesId:1,
+            language:true,
             sortId:0,
-            answered:[],
+            // answered:[],
             quesData: [],
             loading: true,
             error: null
@@ -23,7 +21,8 @@ class FeedbackIndex extends React.Component{
     }
 
     componentDidMount() {
-        getQuesList('random', '10').then(res=>{
+        document.title = '随机练习 - KaoZuo澳洲中文驾考在线练习';
+        getQuesList('random', '3').then(res=>{
             if(res.code === 0) {
                 const quesData = res.data;
                 this.setState({
@@ -44,21 +43,25 @@ class FeedbackIndex extends React.Component{
             });
         });
     }
+
     // reload the component
     componentWillReceiveProps(){
         this.setState({
             sortId: 0
         })
     }
-    
-    checkCorrect(id,c,a){
-        if(c!== a)
-            Toast.offline('Incorrect!!!', 0.5)
-        else{
-            Toast.success('Correct !!!', 0.5);
-            this.setPageState(id)
+   
+    checkCorrect(id,c,a,divId){
+        if(c!== a){
+            var option = document.getElementById(divId);
+            option.classList.add('animation-shake')
+            setTimeout(()=>{option.classList.remove('animation-shake')}, 200);
         }
-        
+        else {
+            document.getElementById(divId).style.backgroundColor = '#49D9CD';
+            document.getElementById('next').focus();
+            correctDivId = divId;
+        }
     }
 
     convertOption(e){
@@ -70,18 +73,42 @@ class FeedbackIndex extends React.Component{
             return 'C'
     }
 
-    setPageState(id, incorrect, c){
-        const result = incorrect ?
-            null
-        :
-            setTimeout(() => {
-                this.setState({
-                    sortId: this.state.sortId + 1,
-                    answered: [...this.state.answered, id],
-            })
-            }, 500)
+    onPrev(id){
+        if(this.state.sortId === 1){
+            document.getElementById('prev').style.visibility = 'hidden';
+        }
 
-        return result
+        if(this.state.sortId !== this.state.quesData.length){
+            document.getElementById('next-text').innerHTML = '下一题';
+        }
+
+        if(correctDivId){
+            document.getElementById(correctDivId).style.backgroundColor = '#F67059'
+        }
+
+        this.setState({
+            sortId: this.state.sortId - 1
+        })
+    }
+
+
+    onNext(id){
+        if(this.state.sortId > -1){
+            document.getElementById('prev').style.visibility = 'unset';
+        }
+
+        if(this.state.sortId === this.state.quesData.length-2){
+            document.getElementById('next-text').innerHTML = '结束';
+        }
+
+        if(correctDivId){
+            document.getElementById(correctDivId).style.backgroundColor = '#F67059';
+        }
+        
+        this.setState({
+            sortId: this.state.sortId + 1,
+            // answered: [...this.state.answered, id],
+        })
     }
 
     renderProgress() {
@@ -90,47 +117,61 @@ class FeedbackIndex extends React.Component{
     }
 
     renderLoading() {
-        return <div className="loadingImg"><img src={loadingImg} className="spe am-icon am-icon-md" alt="" /></div>
+        return <div className="loadingImg"><img src={loadingImg} className="spe am-icon am-icon-md" alt="loading" /></div>
     }
 
-    renderQues() {
-        const _question = this.state.quesData[this.state.sortId];
+    renderQues(){
+        const viewportHeight = window.innerHeight;
+        const _question = this.state.quesData[this.state.sortId]
         const _quesContent = _question? this.state.language ? _question.data.cn : _question.data.en : null;
         
-        const myImg = src => <img src={src} className="spe am-icon am-icon-md" alt="" />;
         return (
-            _question?
-                (
-                    <div className="text-align-left result-example">
-                        {this.renderProgress()}
-                        <Result
-                            className="exam-page-result"
-                            imgUnderTitle
-                            img={_question.image_path?myImg(_question.image_path):null}
-                            style={{ textAlign: 'left', paddingTop: '10px', paddingBottom: '10px' }}
-                            title={_quesContent.question}
-                        />
-                        <WhiteSpace size="xl"></WhiteSpace>
-                        <List>
-                            {_quesContent.choice.map(v=>{
-                                return  (
-                                    <Item
-                                        wrap 
-                                        key={v._id} 
-                                        onClick={() => {
-                                            this.checkCorrect(_question._id, v.option, _quesContent.answer)
-                                            
-                                    }}>
-                                        {this.convertOption(v.option) + '. ' + v.content}
-                                    </Item>
-                                )
-                            })}
-                        </List>
+            _quesContent?
+            (
+                <div className="text-align-left result-example">
+                    {this.renderProgress()}
+                    <div className="ques">
+                    <div className="ques-content">
+                        <div className="ques-content-title">
+                            <p className="ques-title">{_quesContent.question}</p>
+                        </div>
+                        <div className="ques-content-image">
+                            {_question.image_path?
+                                <img className="img" src={_question.image_path}  alt="question" />
+                                :
+                                viewportHeight>=550? <img className="img" style={{visibility: 'hidden'}} alt="question" /> :null
+                            }
+                        </div>
+                        {_quesContent.choice.map(v=>{
+                            return  (
+                                <div className="ques-options" id={v.option} key={v.option} >
+                                    <p onClick={()=>{
+                                        this.checkCorrect(_question._id, v.option, _quesContent.answer, v.option)
+                                    }}
+                                        className="ques-option">{this.convertOption(v.option) + '. ' + v.content}
+                                    </p>
+                                </div>
+                           )
+                        })}
+                        <div className="ques-btn">
+                            <div tabIndex="0" onClick={()=>{
+                                this.onPrev(_question._id);
+                            }} className="ques-options" id="prev" style={{minWidth:'72px',textAlign:'center', background:'#42A2F9', visibility:'hidden'}}><p className="ques-option">上一题</p></div>
+                            <div tabIndex="1" onClick={()=>{
+                                this.onNext(_question._id);
+                            }} className="ques-options" id="next" style={{minWidth:'72px',textAlign:'center', background:'#42A2F9', visibility:'unset'}}><p id="next-text" className="ques-option">下一题</p></div>
+                            
+                        </div>
                     </div>
-                )
-            :
-                <PracticeResult data={this.state} mode = 'feedback'></PracticeResult> 
+                    </div>
+                </div>
+            )
+            : this.renderResultPage()
         )
+    }
+
+    renderResultPage(){
+        return  <PracticeResult data={this.state}  mode={'feedback'}></PracticeResult>
     }
 
     render(){

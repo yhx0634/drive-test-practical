@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import {WhiteSpace} from 'antd-mobile'
 import {Switch, Route, Redirect} from 'react-router-dom'
-import CustTabBar from '../../component/Tabbar/tabbar'
+// import CustTabBar from '../component/Tabbar/tabbar'
 
-import Practice from '../../container/practice/practice'
-import Discover from '../../container/discover/discover'
-import About from '../../container/about/about'
-import CustNavBar from '../../component/navbar/navbar'
+import Practice from '../container/practice/practice'
+import Discover from '../container/discover/discover'
+import About from '../container/about/about'
+import CustNavBar from '../component/navbar/navbar'
 const tabList = [
 	{
 		path:'/practice',
@@ -33,6 +33,7 @@ const tabList = [
 
 class Index extends Component{
     render(){
+		document.title = 'KaoZuo - 澳洲中文驾考在线练习';
         const {pathname} = this.props.location
 		const navPath = tabList.find(v=>v.path===pathname)
 		
@@ -51,7 +52,7 @@ class Index extends Component{
 								<Route key={v.path} path={v.path} component={v.component}></Route>
                             ))}
 						</Switch>
-				<CustTabBar data={tabList}></CustTabBar>
+				{/* <CustTabBar data={tabList}></CustTabBar> */}
 			</div>
         ) : <Redirect to='/practice'></Redirect> 
     }
