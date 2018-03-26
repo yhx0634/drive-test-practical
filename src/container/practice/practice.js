@@ -55,6 +55,7 @@ export const rulesList = [
     // }
 ]
 
+const titleIcon = 'http://www.iconfont.cn/api/icon/downloadIcon?type=png&ids=3543499|-1&color=000000&size=200&ctoken=GHCuDIRUMvMMeqDRShODicon-font'
 class Practice extends Component{
 
     renderMenu(){
@@ -69,7 +70,7 @@ class Practice extends Component{
                             <Link to={{pathname:v.path, data:v}} >
                                 <div className="menu-content" style={{backgroundColor:v.backgroundColor}} key={v.path} >
                                     <div className="menu-content-image">
-                                        <img style={{height:'55px', width:'55px'}} src="https://image.flaticon.com/icons/svg/741/741414.svg"  alt="car" />
+                                        <img style={{height:'55px', width:'55px'}} src={titleIcon}  alt="car" />
                                     </div>
                                     <div className="menu-content-right">
                                         <p className="menu-content-title">{v.title_cn}</p>
@@ -97,7 +98,7 @@ class Practice extends Component{
                             <Link to={{pathname:v.path, data:v}}>
                                 <div className="menu-content" style={{backgroundColor:v.backgroundColor}} key={v.path} >
                                     <div className="menu-content-image">
-                                        <img style={{height:'55px', width:'55px'}} src="https://image.flaticon.com/icons/svg/741/741414.svg"  alt="car" />
+                                        <img style={{height:'55px', width:'55px'}} src={titleIcon}  alt="car" />
                                     </div>
                                     <div className="menu-content-right">
                                         <p style={{paddingTop:'unset'}} className="menu-content-title">{v.title_cn}</p>

@@ -25,15 +25,18 @@ class PracticeResult extends React.Component{
                     }}>{_title}</p>
                     
                     <div tabIndex="0" id={question._id} style={{display:'none'}}>
-                        <p className="title" id={question._id+"_title" } onClick={()=>{
-                        this.handleHidden(question._id)
-                        }}>{_title}</p>
+                        <p className="title" id={question._id+"_title" } >{_title}</p>
                         {question.image_path?<div className="result-img"><img className="img" src={question.image_path}  alt="question" /></div> : null}
                         { 
                             _options.map((v, index)=>{
                                 return <div key={index}> {this.renderOption(v, index, _answer, incorrect)}</div>
                             })
                         }
+                        <div className="result-img" style={{backgroundColor:'#F1F1F1'}} onClick={()=>{
+                        this.handleHidden(question._id)
+                        }}>
+                            <i class='iconfont'>&#xe6e2;</i>
+                        </div>
                     </div>
                 </div>
             // </Link>
@@ -126,15 +129,14 @@ class PracticeResult extends React.Component{
                     })}
                 </div>
             
-            console.log(feedback)
             return feedback
     }
     resultExample() {
         const data = this.props.data;
-        const score = this.calculate(data);
         if(this.props.mode === 'feedback'){
             return <div className="menu">{this.renderFeedback()}</div>
         } else {
+            const score = this.calculate(data);
             return(
                 <div>
                     <div className="result" style={score>=90? {backgroundColor:'#49D9CD'}: {backgroundColor:'tomato'}}>

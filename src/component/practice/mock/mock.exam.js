@@ -20,7 +20,7 @@ class MockExam extends React.Component{
 		}
     }
 
-    componentDidMount() {
+    componentWillMount() {
         document.title = '模考练习 - KaoZuo澳洲中文驾考在线练习';
         getQuesList('random', '10').then(res=>{
             if(res.code === 0) {
