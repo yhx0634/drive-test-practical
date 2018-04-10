@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
+import carImg from '../../component/images/car.png';
+
 
 export const list = [
     {
@@ -8,7 +10,7 @@ export const list = [
         title:'Practice mode',
         title_cn:'模考练习',
         desc:'32 simulation questions, check your ability',
-        desc_cn: '32道模拟题，90分及格哦',
+        desc_cn: '基于新州官方题库，随机32道模拟题，模拟考试测试',
         backgroundColor: '#F682A3'
     },
     {
@@ -17,7 +19,7 @@ export const list = [
         title:'Feedback mode',
         title_cn:'随机练习',
         desc:'32 questions exercises, and get feedback',
-        desc_cn: '随机提取32道题目练习，不会的可以看答案哦',
+        desc_cn: '基于新州官方题库，随机提取32道题目练习，实时反馈结果',
         backgroundColor: '#42A2F9'
     },
     // {
@@ -55,7 +57,7 @@ export const rulesList = [
     // }
 ]
 
-const titleIcon = 'http://www.iconfont.cn/api/icon/downloadIcon?type=png&ids=3543499|-1&color=000000&size=200&ctoken=GHCuDIRUMvMMeqDRShODicon-font'
+const titleIcon = carImg
 class Practice extends Component{
 
     renderMenu(){

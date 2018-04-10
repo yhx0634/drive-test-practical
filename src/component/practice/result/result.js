@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import carImg from '../../images/car.png';
+const titleIcon = carImg
 
 class PracticeResult extends React.Component{
     componentDidMount() {
@@ -35,7 +37,7 @@ class PracticeResult extends React.Component{
                         <div className="result-img" style={{backgroundColor:'#F1F1F1'}} onClick={()=>{
                         this.handleHidden(question._id)
                         }}>
-                            <i class='iconfont'>&#xe6e2;</i>
+                            <i className='iconfont'>&#xe6e2;</i>
                         </div>
                     </div>
                 </div>
@@ -119,7 +121,7 @@ class PracticeResult extends React.Component{
                         return <Link to={{pathname:v.path, data:v}} key={v.mode}>
                             <div className="menu-content" style={{backgroundColor:v.backgroundColor}} key={v.title} >
                                 <div className="menu-content-image">
-                                    <img style={{height:'55px', width:'55px'}} src="https://image.flaticon.com/icons/svg/741/741414.svg"  alt="car" />
+                                    <img style={{height:'55px', width:'55px'}} src={titleIcon}  alt="car" />
                                 </div>
                                 <div className="menu-content-right">
                                     <p className="menu-content-title">{v.title_cn}</p>

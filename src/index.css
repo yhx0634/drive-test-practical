@@ -166,7 +166,11 @@ white-space: normal;
 	display:flex;
 	align-items: center;
 }
-
+@media (min-width: 452px) {
+    .menu-content{
+        width: 450px !important;
+    }
+}
 .menu-content{
 	display:flex;
 	flex-direction: row;
@@ -223,10 +227,10 @@ white-space: normal;
 
 @font-face {
 	font-family: 'iconfont';  /* project id 577312 */
-	src: url('//at.alicdn.com/t/font_577312_i687dy7x7jaqyqfr.eot');
-	src: url('//at.alicdn.com/t/font_577312_i687dy7x7jaqyqfr.eot?#iefix') format('embedded-opentype'),
-	url('//at.alicdn.com/t/font_577312_i687dy7x7jaqyqfr.woff') format('woff'),
-	url('//at.alicdn.com/t/font_577312_i687dy7x7jaqyqfr.ttf') format('truetype'),
-	url('//at.alicdn.com/t/font_577312_i687dy7x7jaqyqfr.svg#iconfont') format('svg');
+	src: url('//at.alicdn.com/t/font_577312_humpkzl19bpgb9.eot');
+	src: url('//at.alicdn.com/t/font_577312_humpkzl19bpgb9.eot?#iefix') format('embedded-opentype'),
+	url('//at.alicdn.com/t/font_577312_humpkzl19bpgb9.woff') format('woff'),
+	url('//at.alicdn.com/t/font_577312_humpkzl19bpgb9.ttf') format('truetype'),
+	url('//at.alicdn.com/t/font_577312_humpkzl19bpgb9.svg#iconfont') format('svg');
 }
 	  

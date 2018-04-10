@@ -4,6 +4,7 @@ import PracticeResult from '../result/result';
 import { getQuesList } from '../../../utils/getdata';
 import {question_list} from '../../../Json/question.list';
 import loadingImg from '../../images/loading.svg';
+import imageIcon from '../../images/image.png';
 
 class MockExam extends React.Component{
     constructor(props) {
@@ -16,13 +17,14 @@ class MockExam extends React.Component{
             language:true,
             quesData: [],
             loading: true,
-            error: null
+            error: null,
+            imageLoading:true
 		}
     }
 
     componentWillMount() {
         document.title = '模考练习 - KaoZuo澳洲中文驾考在线练习';
-        getQuesList('random', '10').then(res=>{
+        getQuesList('random', '32').then(res=>{
             if(res.code === 0) {
                 const quesData = res.data;
                 this.setState({
@@ -44,7 +46,7 @@ class MockExam extends React.Component{
         });
         
     }
-    
+
     checkCorrect(id,c,a){
         c!==a?
         this.setPageState(id, 'incorrect',c)
@@ -53,21 +55,27 @@ class MockExam extends React.Component{
     }
 
     setPageState(id, incorrect, c){
+       
         incorrect ?
         setTimeout(() => {
+            document.getElementById('image_1').style.visibility='hidden'
             this.setState({
                 incorrect:[...this.state.incorrect, {id, c}],
                 sortId: this.state.sortId + 1,
-                answered: [...this.state.answered, id],
-          })
+                answered: [...this.state.answered, id]
+            })
+           
         }, 200)
         :
         setTimeout(() => {
+            document.getElementById('image_1').style.visibility='hidden'
             this.setState({
                 sortId: this.state.sortId + 1,
-                answered: [...this.state.answered, id],
-          })
+                answered: [...this.state.answered, id]
+            })
+            
         }, 200)
+        
     }
     convertOption(e){
         if(e === '0')
@@ -78,6 +86,14 @@ class MockExam extends React.Component{
             return 'C'
     }
 
+    handleImageLoaded() {
+        document.getElementById('image_1').style.visibility='unset'
+    }
+     
+    handleImageErrored() {
+        document.getElementById('image_1').innerHTML='图片载入失败'
+    }
+
     renderProgress() {
         const percent = (this.state.sortId + 1)/ this.state.quesData.length * 100
         return <Progress percent={percent}/>
@@ -86,12 +102,36 @@ class MockExam extends React.Component{
     renderLoading() {
         return <div className="loadingImg"><img src={loadingImg} className="spe am-icon am-icon-md" alt="" /></div>
     }
+
     renderResultPage(){
         return  <PracticeResult data={this.state} mode={'mock'}></PracticeResult>
     }
 
-    renderQues(){
+    renderImage(v){
+        return (
+        <div className="img" id="image_2" style={{backgroundImage : `url(${imageIcon})`, backgroundSize:'100%', visibility:'unset'}}>
+            <img 
+            className="img"
+            id="image_1"
+            style={{visibility: 'hidden'}}
+            src={v}
+            onLoad={this.handleImageLoaded.bind(this)}
+            onError={this.handleImageErrored.bind(this)}
+            alt="question" 
+        /></div>)
+    }
+
+    renderNoneImage(v){
         const viewportHeight = window.innerHeight;
+        return (
+            viewportHeight >= 550? 
+            <img className="img" id="image_1" style={{visibility: 'hidden'}} alt="" />
+            :
+            <img id="image_1" alt="" />
+        )
+    }
+
+    renderQues(){
         const _question = this.state.quesData[this.state.sortId]
         const _quesContent = _question? this.state.language ? _question.data.cn : _question.data.en : null;
         return (
@@ -105,10 +145,11 @@ class MockExam extends React.Component{
                             <p className="ques-title">{_quesContent.question}</p>
                         </div>
                         <div className="ques-content-image">
-                            {_question.image_path?
-                                <img className="img" src={_question.image_path}  alt="question" />
+                            {
+                                _question.image_path?
+                                this.renderImage(_question.image_path)
                                 :
-                                viewportHeight>=550? <img className="img" style={{visibility: 'hidden'}} alt="question" /> :null
+                                this.renderNoneImage()
                             }
                         </div>
                         {_quesContent.choice.map(v=>{

@@ -63,7 +63,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 15px 0px 5px;
+    margin: 20px 0px 5px;
 }
 
 .ques-btn{
@@ -71,9 +71,19 @@
     justify-content: space-between;
 }
 
-.ques-content{
-    width: 100%;
+
+
+.ques-content-image .img{
+    background-color: white;
+    height:160px;
+    width:160px;
 }
+@media (min-width: 452px) {
+    .ques-content{
+        width: 450px;
+    }
+}
+
 
 @media (max-width: 414px) {
     .ques-content-image .img{

@@ -4,6 +4,7 @@ import PracticeResult from '../result/result';
 import { getQuesList } from '../../../utils/getdata';
 import loadingImg from '../../images/loading.svg';
 import {question_list} from '../../../Json/question.list';
+import imageIcon from '../../images/image.png';
 
 var correctDivId = ''
 class FeedbackIndex extends React.Component{
@@ -22,7 +23,7 @@ class FeedbackIndex extends React.Component{
 
     componentDidMount() {
         document.title = '随机练习 - KaoZuo澳洲中文驾考在线练习';
-        getQuesList('random', '3').then(res=>{
+        getQuesList('random', '32').then(res=>{
             if(res.code === 0) {
                 const quesData = res.data;
                 this.setState({
@@ -113,7 +114,16 @@ class FeedbackIndex extends React.Component{
             sortId: this.state.sortId + 1,
             // answered: [...this.state.answered, id],
         })
+        document.getElementById('image_1').style.visibility='hidden'
         
+    }
+
+    handleImageLoaded() {
+        document.getElementById('image_1').style.visibility='unset'
+    }
+     
+    handleImageErrored() {
+        document.getElementById('image_1').innerHTML='图片载入失败'
     }
 
     renderProgress() {
@@ -125,9 +135,31 @@ class FeedbackIndex extends React.Component{
         return <div className="loadingImg"><img src={loadingImg} className="spe am-icon am-icon-md" alt="loading" /></div>
     }
 
-    renderQues(){
-       
+    renderImage(v){
+        return (
+        <div className="img" id="image_2" style={{backgroundImage : `url(${imageIcon})`, backgroundSize:'100%', visibility:'unset'}}>
+            <img 
+            className="img"
+            id="image_1"
+            style={{visibility: 'hidden'}}
+            src={v}
+            onLoad={this.handleImageLoaded.bind(this)}
+            onError={this.handleImageErrored.bind(this)}
+            alt="question" 
+        /></div>)
+    }
+
+    renderNoneImage(v){
         const viewportHeight = window.innerHeight;
+        return (
+                viewportHeight>=550? 
+                <img className="img" id="image_1" style={{visibility: 'hidden'}} alt="" />
+                :
+                <img id="image_1" alt="" />
+            )
+    }
+
+    renderQues(){
         const _question = this.state.quesData[this.state.sortId]
         const _quesContent = _question? this.state.language ? _question.data.cn : _question.data.en : null;
         
@@ -142,10 +174,11 @@ class FeedbackIndex extends React.Component{
                             <p className="ques-title">{_quesContent.question}</p>
                         </div>
                         <div className="ques-content-image">
-                            {_question.image_path?
-                                <img className="img" src={_question.image_path}  alt="question" />
+                            {
+                                _question.image_path?
+                                this.renderImage(_question.image_path)
                                 :
-                                viewportHeight>=550? <img className="img" style={{visibility: 'hidden'}} alt="question" /> :null
+                                this.renderNoneImage()
                             }
                         </div>
                         {_quesContent.choice.map(v=>{

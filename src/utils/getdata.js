@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export function getQuesList(type, limit) {
-    const API_HOST = `http://api/questions?type=${type}&&limit=${limit}`
+    const API_HOST = `http://api.kaozuo.youhx.me/kaozuo/query/questions?type=${type}&&limit=${limit}`
     const data = axios.get(API_HOST)
         .then(function (response) {
             if(response.status === 200 && response.data.code === 0) {
